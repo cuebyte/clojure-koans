@@ -3,28 +3,36 @@
 
 (defn is-even? [n]
   (if (= n 0)
-    __
-    (___ (is-even? (dec n)))))
+    true
+    (not (is-even? (dec n)))))
 
 (defn is-even-bigint? [n]
   (loop [n   n
          acc true]
     (if (= n 0)
-      __
+      acc
       (recur (dec n) (not acc)))))
 
 (defn recursive-reverse [coll]
-  __)
+  (loop [coll coll
+         reversd '()]
+    (if (empty? coll)
+      reversd
+      (recur (rest coll) (cons (first coll) reversd)))))
 
 (defn factorial [n]
-  __)
+  (loop [n n
+         prd 1]
+    (if (= n 1)
+      prd
+      (recur (dec n) (* prd n)))))
 
 (meditations
   "Recursion ends with a base case"
   (= true (is-even? 0))
 
   "And starts by moving toward that base case"
-  (= false (is-even? 1))
+  (= false (is-even? 3))
 
   "Having too many stack frames requires explicit tail calls with recur"
   (= false (is-even-bigint? 100003N))
